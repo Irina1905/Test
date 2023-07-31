@@ -5,7 +5,7 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите операцию: ");
         String input = scanner.nextLine();
-        System.out.println(calc(input));
+        System.out.println("Результат: " + calc(input));
     }
 
     public static String calc(String input) throws Exception {
@@ -23,7 +23,6 @@ public class Calculator {
                 case "/" -> result = operand1 / operand2;
                 default -> System.out.println("Неверный оператор");
             }
-            System.out.println("Результат: " + result);
         } else {
             throw new Exception();
         }
