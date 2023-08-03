@@ -1,31 +1,40 @@
 import java.util.Scanner;
 
 public class Calculator {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите операцию: ");
         String input = scanner.nextLine();
-        System.out.println("Результат: " + calc(input));
-    }
 
-    public static String calc(String input) throws Exception {
-        String[] parts = input.split(" ");
-        int operand1 = Integer.parseInt(parts[0]);
-        String operator = parts[1];
-        int operand2 = Integer.parseInt(parts[2]);
-        int result = 0;
-        if (operand1 > 0 && operand1 <= 10 && operand2 > 0
-                && operand2 <= 10 && parts.length == 3) {
-            switch (operator) {
-                case "+" -> result = operand1 + operand2;
-                case "-" -> result = operand1 - operand2;
-                case "*" -> result = operand1 * operand2;
-                case "/" -> result = operand1 / operand2;
-                default -> System.out.println("Неверный оператор");
-            }
-        } else {
-            throw new Exception();
+
+        System.out.println(calc(input));
+    }
+    public static String calc(String input) {
+        String[] values = input.split(" ");
+        if (values.length != 3) {
+            throw new IllegalArgumentException("Invalid input");
         }
+
+        int a;
+        int b;
+        try {
+            a = Integer.parseInt(values[0]);
+            b = Integer.parseInt(values[2]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid numbers");
+        }
+
+        int result = switch (values[1]) {
+            case "+" -> a + b;
+            case "-" -> a - b;
+            case "*" -> a * b;
+            case "/" -> {
+                if (b == 0) {
+                    throw new IllegalArgumentException("Cannot divide by zero");
+                }
+                yield a / b;
+            }
+            default -> throw new IllegalArgumentException("Invalid operation");
+        };
         return String.valueOf(result);
     }
 }
