@@ -36,6 +36,7 @@ public class Calculator {
             case "/" -> a / b;
             default -> throw new IllegalArgumentException("Недопустимая операция");
         };
+        if (result > 20) throw new IllegalArgumentException("Сумма больше 20");
         return String.valueOf(result);
     }
 }
